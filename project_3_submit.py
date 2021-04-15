@@ -2,7 +2,6 @@
 ITN 160
 Project 3: Point of Sale System - New
 
-Rashed Khan
 11/10/20
 """
 
