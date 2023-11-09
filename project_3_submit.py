@@ -1,20 +1,9 @@
-"""
-ITN 160
-Project 3: Point of Sale System - New
-
-11/10/20
-"""
-
 from guizero import *
-
 from datetime import datetime
-
 from time import strftime
-
 
 FOOD_NAME = ['Chicken Teriyaki $16.99', 'NY Steak $22.99', 'Salmon $18.99', 'Lobster $30.99']
 SODA_NAME = ['Coke $2.50', 'Iced Tea $2.50', 'Ginger Ale $3.00', 'Coffee $3.50']
-
 QUANTITY = [1, 2, 3, 4]
 
 item_id = 0
@@ -24,9 +13,15 @@ food = ''
 food_quantity_str = ''
 soda = ''
 soda_quantity_str = ''
-
+customer_name = ''  
 
 def main():
+    def get_customer_name():
+        global customer_name
+        customer_name = name_box.value
+        welcome_message.value = "Welcome, {}!\nEnter your entree and beverage choices".format(customer_name)
+
+
     def food_order():
         global total_price
         global item_id
@@ -94,11 +89,16 @@ def main():
         # Reset the combo boxes
         soda_items.value = SODA_NAME[0]
         soda_quantity.value = QUANTITY[0]
+        # item_id = 0
 
     def submit_order():
         # if item_id != 0:
-        global total_price
-        global ticket_number
+        global total_price, ticket_number, food, soda, customer_name
+        
+        # Add a separator line between tickets
+        #if ticket_number > 1:
+            # Add a separator line between tickets
+        lbx_ticket_window.append("-" * 50)
 
         # add a increment in the ticket number and make it to string
         ticket_number += 1
@@ -107,8 +107,12 @@ def main():
         # Current time
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
+        
         # Add ticket number and current time into the ticket window
         lbx_ticket_window.append(f" {'Ticket: ' + ticket_number_str + ' '}{strftime('%D') + ' '}{current_time} ")
+        lbx_ticket_window.append(f" {'Customer: ' + customer_name}")
+
+        
 
         # Adding items into the order window and also adding total price
         if len(food) == 3:
@@ -129,7 +133,9 @@ def main():
 
         # Reset total price
         total_price = 0
+        name_box.value = ""
         print(total_price)
+        
 
         # Clear order window
         lbx_order_windows.clear()
@@ -153,14 +159,18 @@ def main():
             print(total_price)
 
     # Define the screen layout
-    app = App(title='Hakone Deluxe', width=660, height=300,
+    app = App(title='Hakone Deluxe', width=660, height=400,
               bg='grey')
     app.text_size = 14
 
     window1 = Window(app, title='Order Preview', width=450, height=400)
     window2 = Window(app, title='Ticket Window', width=450, height=400)
+    
+    name_box = TextBox(app, width=20, command=get_customer_name)  # Add command=get_customer_name
+    welcome_message = Text(app, text="\nEnter your name:")
+    ok_button = PushButton(app, text="OK", command=get_customer_name)
 
-    Text(app, text="\nEnter your entree and beverage choices\n")
+    # Text(app, text="\nEnter your entree and beverage choices\n")
     # Space on the left border
     Box(app, width=25, height=100, align='left')
 

@@ -21,10 +21,10 @@ def login(username, password):
     try:
         # Connect to the MySQL database
         connection = mysql.connector.connect(
-            host='localhost',
+            host='localhost:3306',
             database='your_database_name',
-            user='your_username',
-            password='your_password'
+            user='root',
+            password='123456'
         )
 
         # Execute a select query to check if the username and password match
