@@ -226,10 +226,10 @@ def main():
             print(total_price)
 
     # Define the screen layout
-    app = App(title='Hakone Deluxe', width=660, height=400, bg='grey')
-    app.text_size = 14
+    login_window = App(title='Login', width=300, height=150, layout="grid")
 
-    login_window = Window(app, title='Login', width=300, height=150, layout="grid")
+    app = Window(login_window, title='Hakone Deluxe', width=660, height=400, bg='grey')
+    app.text_size = 14
 
     Text(login_window, text="Username:", grid=[0, 0], align="left")
     login_username = TextBox(login_window, width=15, grid=[1, 0])
@@ -300,7 +300,7 @@ def main():
     show_login()
 
     # Run the main function
-    app.display()
+    login_window.display()
 
 # Run the main function
 main()
