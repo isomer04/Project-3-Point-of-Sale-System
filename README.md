@@ -7,6 +7,7 @@ This project is a Point of Sale (POS) system implemented in Python. The GUI of t
 
 * Python 3.6+
 * guizero module
+* MySQL
 
 ## Usage
 
